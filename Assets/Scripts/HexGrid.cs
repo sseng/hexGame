@@ -24,7 +24,7 @@ namespace Assets.Scripts
             cells = new List<HexCell>();
 
             DrawHexBoard(BoardOrientation.flat, 0.585f);
-            //DrawSquareBoard();
+            //DrawSquareBoard(0.51f);
 	    }
 
         private void DrawHexBoard(BoardOrientation orientation, float spacing)
@@ -50,25 +50,26 @@ namespace Assets.Scripts
                             position.z = (HexMetrics.innerRadius * 3.0f / 2.0f * r) * spacing;
                             break;
                     }
-
-                    CreateCell(position);
+                    var coordinates = new HexCoordinates(q, r);
+                    CreateCell(position, coordinates);
                 }
             }
         }
 
-        private void DrawSquareBoard()
+        private void DrawSquareBoard(float spacing)
         {
-            for (int z = 0, i = 0; z < height; z++)
+            for (int z = 0; z < height; z++)
             {
                 for (int x = 0; x < width; x++)
                 {
                     Vector3 position = new Vector3
                     {
-                        x = (x + z * 0.5f - z / 2) * (HexMetrics.innerRadius * 2f),
+                        x = (x + z * 0.5f - z / 2) * (HexMetrics.innerRadius * 2f) * spacing,
                         y = 0f,
-                        z = z * (HexMetrics.outerRadius * 1.5f)
+                        z = z * (HexMetrics.outerRadius * 1.5f) * spacing
                     };
-                    CreateCell(position);
+                    var coordinates = new HexCoordinates(x, z);
+                    CreateCell(position, coordinates);
                 }
             }
         }
@@ -78,18 +79,18 @@ namespace Assets.Scripts
         //    hexMesh.TriangulateAll(cells);
         //}
 
-        void CreateCell(Vector3 position)
+        void CreateCell(Vector3 position, HexCoordinates coordinates)
         {
             var cell = Instantiate(cellPrefab);
             cells.Add(cell);
             cell.transform.SetParent(transform, false);
             cell.transform.localPosition = position;
-            cell.coordinates = HexCoordinates.FromOffsetCoordinates(position);
+            cell.coordinates = coordinates;
             cell.color = defaultColor;
 
             Text label = Instantiate(cellLabelPrefab);
             label.rectTransform.SetParent(gridCanvas.transform, false);
-            label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
+            label.rectTransform.anchoredPosition = new Vector2(position.x*2, position.z*2);
             label.text = cell.coordinates.ToStringOnSeparateLines();
         }
 
