@@ -24,23 +24,32 @@ namespace Assets.Scripts
             colors = new List<Color>();
         }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
-        internal void Triangulate(HexCell[] cells)
+        internal void TriangulateAll(List<HexCell> cells)
         {
             mesh.Clear();
             vertices.Clear();
             triangles.Clear();
             colors.Clear();
 
-            for (int i = 0; i < cells.Length; i++)
+            foreach(var cell in cells)
             {
-                Triangulate(cells[i]);
+                Triangulate(cell);
             }
+            mesh.vertices = vertices.ToArray();
+            mesh.triangles = triangles.ToArray();
+            mesh.RecalculateNormals();
+            mesh.colors = colors.ToArray();
+            meshCollider.sharedMesh = mesh;
+        }
+
+        public void Triangulate()
+        {
+            Vector3 center = transform.localPosition;
+            for (int i = 0; i < 6; i++)
+            {
+                AddTriangle(center, center + HexMetrics.corners[i], center + HexMetrics.corners[i + 1]);
+            }
+
             mesh.vertices = vertices.ToArray();
             mesh.triangles = triangles.ToArray();
             mesh.RecalculateNormals();
@@ -53,8 +62,8 @@ namespace Assets.Scripts
             Vector3 center = cell.transform.localPosition;
             for (int i = 0; i < 6; i++)
             {
-                AddTriangle(center, center + HexMetrics.corners[i], center + HexMetrics.corners[i+1]);
-                AddTriangleColor(cell.color);
+                AddTriangle(center, center + HexMetrics.corners[i], center + HexMetrics.corners[i + 1]);
+                //addtrianglecolor(cell.color);
             }
         }
 
