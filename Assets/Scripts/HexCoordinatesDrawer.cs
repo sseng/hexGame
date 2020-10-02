@@ -3,12 +3,12 @@ using UnityEditor;
 
 namespace Assets.Scripts
 {
-    [CustomPropertyDrawer(typeof(HexCoordinates))]
+    [CustomPropertyDrawer(typeof(Hex))]
     public class HexCoordinatesDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            HexCoordinates coordinates = new HexCoordinates(
+            Hex coordinates = new Hex(
                 property.FindPropertyRelative("x").intValue,
                 property.FindPropertyRelative("z").intValue
             );

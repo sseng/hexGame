@@ -6,7 +6,7 @@ namespace Assets.Scripts
     public class HexMapEditor : MonoBehaviour
     {
         public Color[] colors;
-        public HexGrid hexGrid;
+        public Layout layout;
 
         private Color activeColor;
 
@@ -29,7 +29,8 @@ namespace Assets.Scripts
             RaycastHit hit;
             if (Physics.Raycast(inputRay, out hit))
             {
-                hexGrid.ColorCell(hit.point, activeColor);
+                Debug.Log($"clicked position: {hit.point}");
+                layout.ColorCell(hit.point, activeColor);
             }
         }
 

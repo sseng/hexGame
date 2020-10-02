@@ -13,6 +13,8 @@ namespace Assets.Scripts
         List<Vector3> vertices;
         List<int> triangles;
         List<Color> colors;
+        List<Vector3> corners;
+        
 
         private void Awake()
         {
@@ -24,30 +26,18 @@ namespace Assets.Scripts
             colors = new List<Color>();
         }
 
-        internal void TriangulateAll(List<HexCell> cells)
+        public void Triangulate(Color color, Vector3[] corners)
         {
             mesh.Clear();
             vertices.Clear();
             triangles.Clear();
             colors.Clear();
 
-            foreach(var cell in cells)
-            {
-                Triangulate(cell);
-            }
-            mesh.vertices = vertices.ToArray();
-            mesh.triangles = triangles.ToArray();
-            mesh.RecalculateNormals();
-            mesh.colors = colors.ToArray();
-            meshCollider.sharedMesh = mesh;
-        }
-
-        public void Triangulate()
-        {
-            Vector3 center = transform.localPosition;
+            Vector3 center = transform.position;
             for (int i = 0; i < 6; i++)
             {
-                AddTriangle(center, center + HexMetrics.corners[i], center + HexMetrics.corners[i + 1]);
+                AddTriangle(center, center + corners[i], center + corners[i + 1]);
+                AddTriangleColor(color);
             }
 
             mesh.vertices = vertices.ToArray();
@@ -55,23 +45,6 @@ namespace Assets.Scripts
             mesh.RecalculateNormals();
             mesh.colors = colors.ToArray();
             meshCollider.sharedMesh = mesh;
-        }
-
-        void Triangulate(HexCell cell)
-        {
-            Vector3 center = cell.transform.localPosition;
-            for (int i = 0; i < 6; i++)
-            {
-                AddTriangle(center, center + HexMetrics.corners[i], center + HexMetrics.corners[i + 1]);
-                //addtrianglecolor(cell.color);
-            }
-        }
-
-        private void AddTriangleColor(Color color)
-        {
-            colors.Add(color);
-            colors.Add(color);
-            colors.Add(color);
         }
 
         void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3)
@@ -83,6 +56,13 @@ namespace Assets.Scripts
             triangles.Add(vertexIndex);
             triangles.Add(vertexIndex + 1);
             triangles.Add(vertexIndex + 2);
+        }
+
+        public void AddTriangleColor(Color color)
+        {
+            colors.Add(color);
+            colors.Add(color);
+            colors.Add(color);
         }
     }
 }
