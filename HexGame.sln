@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{5FF082AA-0980-5F69-0E8E-FEEE2309BF0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameAssembly", "GameAssembly.csproj", "{3B84ACFA-D782-D83F-6899-D4D7A7DC4467}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditMode", "EditMode.csproj", "{18CF0FBD-1FF0-3B86-B826-08745B7497FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5FF082AA-0980-5F69-0E8E-FEEE2309BF0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FF082AA-0980-5F69-0E8E-FEEE2309BF0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FF082AA-0980-5F69-0E8E-FEEE2309BF0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FF082AA-0980-5F69-0E8E-FEEE2309BF0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B84ACFA-D782-D83F-6899-D4D7A7DC4467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B84ACFA-D782-D83F-6899-D4D7A7DC4467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B84ACFA-D782-D83F-6899-D4D7A7DC4467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B84ACFA-D782-D83F-6899-D4D7A7DC4467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18CF0FBD-1FF0-3B86-B826-08745B7497FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18CF0FBD-1FF0-3B86-B826-08745B7497FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18CF0FBD-1FF0-3B86-B826-08745B7497FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18CF0FBD-1FF0-3B86-B826-08745B7497FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

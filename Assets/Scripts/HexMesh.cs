@@ -33,7 +33,7 @@ namespace Assets.Scripts
             triangles.Clear();
             colors.Clear();
 
-            Vector3 center = transform.position;
+            var center = Vector3.zero;
             for (int i = 0; i < 6; i++)
             {
                 AddTriangle(center, center + corners[i], center + corners[i + 1]);

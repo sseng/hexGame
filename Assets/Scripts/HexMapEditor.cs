@@ -29,7 +29,6 @@ namespace Assets.Scripts
             RaycastHit hit;
             if (Physics.Raycast(inputRay, out hit))
             {
-                Debug.Log($"clicked position: {hit.point}");
                 layout.ColorCell(hit.point, activeColor);
             }
         }

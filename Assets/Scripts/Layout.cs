@@ -89,14 +89,14 @@ namespace Assets.Scripts
         public void ColorCell(Vector3 point, Color color)
         {
             //position = transform.InverseTransformPoint(position);
-            //var hex = ScreenToHex(orientation, point);
             var hex = PointToHex(point);
+            var pos = HexToPoint(hex);
             var cell = (HexCell)cells[hex];
 
             if (cell != null)
             {
                 cell.Color = color;
-                //cell.Triangulate();
+                cell.Triangulate();
                 Debug.Log($"Cell index: {cell.Index}  coord: {cell.Hex}  clicked: {point} cell pos: {cell.transform.position} color: {cell.Color}");
             }
             else
@@ -112,11 +112,11 @@ namespace Assets.Scripts
             switch (orienatation)
             {
                 case OrientationType.flat:
-                    return new Orientation(3/2, 0, sqrt3/2, sqrt3, 2/3, 0, -1/3, sqrt3/3, 0);
+                    return new Orientation(3.0f/2.0f, 0f, sqrt3/2.0f, sqrt3, 2.0f/3.0f, 0f, -1.0f/3.0f, sqrt3/3.0f, 0f);
 
                 case OrientationType.pointy:
                 default:
-                    return new Orientation(sqrt3, sqrt3/2, 0, 3/2, sqrt3/3, -1/3, 0f, 2/3, 0.5f);
+                    return new Orientation(sqrt3, sqrt3/2f, 0f, 3.0f/2.0f, sqrt3/3.0f, -1.0f/3.0f, 0f, 2.0f/3.0f, 0.5f);
             }
         }
 
@@ -124,10 +124,8 @@ namespace Assets.Scripts
         public Vector3 HexToPoint(Hex hex)
         {
             var o = Orientation;
-            //pointy -> (sqrt3 * q + sqrt3/2 * r) * size
             var x = (o.F0 * hex.Q + o.F1 * hex.R) * HexMetrics.size * hexSpacing;
-            //pointy -> (0 * r + 3/2 * r) * size
-            var z = (o.F2 * hex.Q + o.F3 * hex.R) * HexMetrics.size * 6/4 * hexSpacing;
+            var z = (o.F2 * hex.Q + o.F3 * hex.R) * HexMetrics.size * hexSpacing;
 
             return new Vector3(x, 0f, z);
         }
@@ -137,8 +135,8 @@ namespace Assets.Scripts
         {
             var o = Orientation;
             double x = point.x / (HexMetrics.size * hexSpacing);
-            double z = point.z / (HexMetrics.size * 6 / 4 * hexSpacing);
-            var q = (o.B0 * x - o.B1 * z);
+            double z = point.z / (HexMetrics.size * hexSpacing);
+            var q = (o.B0 * x + o.B1 * z);
             var r = (o.B2 * x + o.B3 * z);
 
             return HexRound(q, r, -q - r);
