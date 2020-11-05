@@ -12,12 +12,6 @@ namespace Assets.Scripts
         //inner radius = distance from center of hex to each side.
         //inner radius is equal to sqrt(3)/2 * outer radius
 	    public const float innerRadius = 0.866025404f * outerRadius;
-        public const float height = 2* outerRadius;
-        public const float rowHeight = 1.5f * outerRadius;
-        public static float halfWidth = Mathf.Sqrt((outerRadius * outerRadius) - ((outerRadius / 2) * (outerRadius / 2)));
-        public static float width = 2 * halfWidth;
-        public static float extraHeight = height - rowHeight;
-
 
         public static Vector3[] corners = {
             new Vector3(0f, 0f, outerRadius),

@@ -933,6 +933,7 @@ MonoBehaviour:
   cellPrefab: {fileID: 2767539161268605897, guid: 7ff2ab08ee3cf0349a8cf36a8e21d396,
     type: 3}
   cellLabelPrefab: {fileID: 11470134, guid: f68794ca03b6f4510b9a5bd6ee9ba2f4, type: 3}
+  spacing: 1
 --- !u!4 &751046373
 Transform:
   m_ObjectHideFlags: 0

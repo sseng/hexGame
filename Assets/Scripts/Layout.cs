@@ -14,6 +14,8 @@ namespace Assets.Scripts
         public Color touchedColor = Color.blue;
 	    public HexCell cellPrefab;
 	    public Text cellLabelPrefab;
+        [Range(0, 5)]
+        public int spacing = 1;
 
         public Orientation Orientation { get; set; }
 
@@ -23,6 +25,7 @@ namespace Assets.Scripts
 
 	    void Awake ()
         {
+            hexSpacing = 1f + spacing * 5 / 100f;
 		    gridCanvas = GetComponentInChildren<Canvas>();
             Orientation = LayoutOrientation(OrientationType.pointy);
             DrawHexBoard();
@@ -73,9 +76,27 @@ namespace Assets.Scripts
 
             cell.transform.SetParent(transform, false);
             cell.transform.position = position;
-            cells.Add(hex, cell);
 
+
+            if(cell.Index > 0)
+                SetNeighbors(cell);
             AddLabelToCell(cell, position);
+
+            cells.Add(hex, cell);
+            
+        }
+
+        public void SetNeighbors(HexCell cell)
+        {
+            var directions = Enum.GetValues(typeof(HexDirection));
+            foreach (HexDirection direction in directions)
+            {
+                var otherCell = (HexCell)cells[cell.HexNeighbor(direction)];
+                if (otherCell != null)
+                {
+                    cell.SetNeighbor(direction, otherCell);
+                }
+            }
         }
 
         void AddLabelToCell(HexCell cell, Vector3 position)
@@ -83,7 +104,7 @@ namespace Assets.Scripts
             Text label = Instantiate(cellLabelPrefab);
             label.rectTransform.SetParent(gridCanvas.transform, false);
             label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-            label.text = cell.Hex.ToStringQR(cell.Index);
+            label.text = cell.Hex.ToStringWithIndex(cell.Index);
         }
 
         public void ColorCell(Vector3 point, Color color)

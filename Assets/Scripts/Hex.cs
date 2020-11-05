@@ -20,6 +20,31 @@ namespace Assets.Scripts
             S = s;
         }
 
+        public Hex Add(Hex b)
+        {
+            return new Hex(Q + b.Q, R + b.R, S + b.S);
+        }
+
+        public Hex Subtract(Hex b)
+        {
+            return new Hex(Q - b.Q, R - b.R, S - b.S);
+        }
+
+        public Hex Scale(int k)
+        {
+            return new Hex(Q * k, R * k, S * k);
+        }
+
+        public Hex RotateLeft()
+        {
+            return new Hex(-S, -Q, -R);
+        }
+
+        public Hex RotateRight()
+        {
+            return new Hex(-R, -S, -Q);
+        }
+
         #region square board calculations
         public static Hex FromOffsetCoordinates(Vector3 position)
         {
@@ -68,7 +93,7 @@ namespace Assets.Scripts
 
         public string ToStringWithIndex(int index)
         {
-            return $"({index}){Environment.NewLine}{Q.ToString()}   {R.ToString()}   {S.ToString()}";
+            return $"({index}){Environment.NewLine}{Q.ToString()}  {R.ToString()}  {S.ToString()}";
         }
 
         public string ToStringQR(int index)

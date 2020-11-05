@@ -11,17 +11,47 @@ namespace Assets.Scripts
         public int Index { get; set; }
         public Orientation Orientation { get; set; }
         public Hex Hex { get; set; }
+        public HexCell[] neighbors;
 
         private HexMesh mesh;
+        private readonly List<Hex> hexDirections = new List<Hex>()
+        {
+            new Hex(1, 0, -1), new Hex(1, -1, 0), new Hex(0, -1, 1), new Hex(-1, 0, 1), new Hex(-1, 1, 0), new Hex(0, 1, -1)
+        };
+
 
         private void Awake()
         {
             mesh = GetComponent<HexMesh>();
+            neighbors = new HexCell[6];
         }
 
         public void Triangulate()
         {
             mesh.Triangulate(Color, HexMetrics.corners);
+        }
+
+        public Hex HexNeighbor(HexDirection direction)
+        {
+            var neighbor = Hex.Add(hexDirections[(int)direction]);
+            return neighbor;
+        }
+
+        public HexCell GetNeighbor(HexDirection direction)
+        {
+            return neighbors[(int)direction];
+        }
+
+        public void SetNeighbor(HexDirection direction, HexCell otherCell)
+        {
+            neighbors[(int)direction] = otherCell;
+            var opposite = Opposite(direction);
+            otherCell.neighbors[(int)opposite] = this;
+        }
+
+        public HexDirection Opposite(HexDirection direction)
+        {
+            return (int)direction < 3 ? (direction + 3) : (direction - 3);
         }
 
         private Vector3[] Corners()
@@ -39,5 +69,10 @@ namespace Assets.Scripts
             }
             return corners;
         }
+    }
+
+    public enum HexDirection
+    {
+        E, SE, SW, W, NW, NE
     }
 }

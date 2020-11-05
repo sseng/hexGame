@@ -15,7 +15,6 @@ namespace Tests
             // arrange
             var layout = Object.FindObjectOfType<Layout>();
             layout.Orientation = layout.LayoutOrientation(OrientationType.pointy);
-            var hexGrid = HexData();
 
             // act
             var point = layout.HexToPoint(hex);
